@@ -5,7 +5,7 @@ import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Loader } from './Loader/Loader';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
-import { getGallery } from '../getGallery';
+import { galleryApi } from './services/galleryApi';
 
 class App extends Component {
   state = {
@@ -17,26 +17,29 @@ class App extends Component {
     allImages: 0,
     isModalOpen: false,
     imageForModal: '',
+    allPages: '',
   };
 
   loadGallery = async () => {
     this.setState({ isLoading: true });
     let { search, page } = this.state;
 
-    const data = await getGallery(search, page);
+    const data = await galleryApi(search, page);
 
     this.setState({
       page,
       gallery: data.hits,
       isLoading: false,
       allImages: data.total,
+      allPages: data.totalHits / 12,
     });
+    //  console.log(this.allPages);
   };
 
   loadMoreImages = async () => {
     this.setState({ isLoading: true });
     const { search, page } = this.state;
-    const data = await getGallery(search, page);
+    const data = await galleryApi(search, page);
 
     this.setState(prevState => ({
       gallery: [...prevState.gallery, ...data.hits],
@@ -100,6 +103,7 @@ class App extends Component {
     } = this.state;
 
     const areImages = gallery.length > 0;
+    console.log(this.state.page);
 
     return (
       <div

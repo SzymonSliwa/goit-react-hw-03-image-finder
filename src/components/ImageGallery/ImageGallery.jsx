@@ -23,6 +23,12 @@ export const ImageGallery = ({ gallery, onClickImg }) => {
 };
 
 ImageGallery.propTypes = {
-  gallery: propTypes.arrayOf(propTypes.object).isRequired,
+  gallery: propTypes.arrayOf(
+    propTypes.shape({
+      id: propTypes.number.isRequired,
+      webformatURL: propTypes.string.isRequired,
+      largeImageURL: propTypes.string.isRequired,
+    })
+  ),
   onClickImg: propTypes.func.isRequired,
 };

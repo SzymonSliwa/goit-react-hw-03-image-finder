@@ -2,7 +2,7 @@ import axios from 'axios';
 
 axios.defaults.baseURL = `https://pixabay.com/api`;
 
-export const getGallery = async (search, page = 1) => {
+export const galleryApi = async (search, page = 1) => {
   const filters =
     '&image_type=photo&orientation=horizontal&safesearch=true&per_page=12';
   const key = '35246329-add22568f1c638791398d2d1c';
